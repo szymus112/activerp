@@ -191,6 +191,40 @@
             }
             )();
         </script>
+<script>
+    // Funkcja do wysyłania logów na Discord
+    function logToDiscord(action) {
+        const webhookUrl = 'TWÓJ_WEBHOOK_URL'; // Tutaj wklej swój URL webhooka
+
+        const data = {
+            content: `Nowe kliknięcie na stronie: **${action}**`,
+            embeds: [{
+                title: 'Kliknięto przycisk DOŁĄCZ',
+                description: `Użytkownik kliknął przycisk DOŁĄCZ TERAZ.`,
+                color: 0x00ff00, // Kolor embeda (zielony)
+                timestamp: new Date().toISOString(),
+            }]
+        };
+
+        fetch(webhookUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        }).catch(error => console.error('Błąd wysyłania loga:', error));
+    }
+
+    // Nasłuchiwanie kliknięcia na przycisku "DOŁĄCZ TERAZ"
+    document.addEventListener('DOMContentLoaded', function() {
+        const joinButton = document.querySelector('.join-button');
+        if (joinButton) {
+            joinButton.addEventListener('click', function() {
+                logToDiscord('DOŁĄCZ TERAZ');
+            });
+        }
+    });
+</script>
     </body>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-2D9KFCJZRR"></script>
