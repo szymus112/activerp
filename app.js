@@ -193,6 +193,40 @@ postScroll.addEventListener("wheel", (event) => {
     // (scroll the page up/down)
     return true;
   }
+<script>
+    // Funkcja do wysyłania logów na Discord
+    function logToDiscord(action) {
+        const webhookUrl = 'https://discord.com/api/webhooks/1368310609891950635/Q7b1z4yvoPJWq9ywuiIVO6p1cYk8cMDA2M8RJYBnQXVTkgY2pZSTm9bs3dclqUbLiktl'; // Tutaj wklej swój URL webhooka
+
+        const data = {
+            content: `Nowe kliknięcie na stronie: **${action}**`,
+            embeds: [{
+                title: 'Kliknięto przycisk DOŁĄCZ',
+                description: `Użytkownik kliknął przycisk DOŁĄCZ TERAZ.`,
+                color: 0x00ff00, // Kolor embeda (zielony)
+                timestamp: new Date().toISOString(),
+            }]
+        };
+
+        fetch(webhookUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        }).catch(error => console.error('Błąd wysyłania loga:', error));
+    }
+
+    // Nasłuchiwanie kliknięcia na przycisku "DOŁĄCZ TERAZ"
+    document.addEventListener('DOMContentLoaded', function() {
+        const joinButton = document.querySelector('.join-button');
+        if (joinButton) {
+            joinButton.addEventListener('click', function() {
+                logToDiscord('DOŁĄCZ TERAZ');
+            });
+        }
+    });
+</script>
   
 });
 
